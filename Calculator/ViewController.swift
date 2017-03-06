@@ -38,6 +38,19 @@ class ViewController: UIViewController {
         checkButtonResult = false
     }
 
+    @IBAction func backspaceButton(_ sender: UIButton) {
+        var newText: String = textField.text!
+        newText.remove(at: newText.index(before: newText.endIndex))
+        textField.text = newText
+        if arithmeticSign != ""
+        {
+            checkButton = false
+            checkButtonResult = true
+            arithmeticSign = ""
+        }
+    }
+    
+    
     @IBAction func plusButton(_ sender: UIButton) {
         if textField.hasText && arithmeticSign == ""{
             firstArgument = Double (textField.text!)!
