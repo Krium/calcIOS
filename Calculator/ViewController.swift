@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     //MARK:
     @IBOutlet weak var textField: UITextField!
     
-    
+
     //MARK: Variables
     var firstArgument = 0.0
     var secondArgument = 0.0
@@ -39,7 +39,11 @@ class ViewController: UIViewController {
     }
 
     @IBAction func backspaceButton(_ sender: UIButton) {
+        
+        if textField.hasText {
         var newText: String = textField.text!
+        
+    
         newText.remove(at: newText.index(before: newText.endIndex))
         textField.text = newText
         if arithmeticSign != ""
@@ -47,6 +51,7 @@ class ViewController: UIViewController {
             checkButton = false
             checkButtonResult = true
             arithmeticSign = ""
+        }
         }
     }
     
@@ -178,6 +183,8 @@ class ViewController: UIViewController {
             let firstNumber = Double (textField.text!)
             if firstNumber != 0 {
             textField.text = textField.text! + "0"
+            } else if firstNumber == 0 && (textField.text?.characters.contains ("."))! {
+                textField.text = textField.text! + "0"
             }
         } else if textField.hasText && checkButtonResult {
             textField.text = ""
@@ -191,113 +198,41 @@ class ViewController: UIViewController {
     }
     
     @IBAction func oneButton(_ sender: UIButton) {
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "1"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "1"
-            checkButtonResult = false
-        } else {
-            textField.text = "1"
-        }
+      pushedNumberButton (buttonName: "1")
     }
     
     @IBAction func twoButton(_ sender: UIButton) {
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "2"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "2"
-            checkButtonResult = false
-        } else {
-        textField.text = "2"
-        }
+     pushedNumberButton (buttonName: "2")
     }
     
     @IBAction func threeButton(_ sender: UIButton) {
         
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "3"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "3"
-            checkButtonResult = false
-        } else {
-            textField.text = "3"
-        }
-        
+      pushedNumberButton (buttonName: "3")
     }
     
     @IBAction func fourButton(_ sender: UIButton) {
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "4"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "4"
-            checkButtonResult = false
-        } else {
-            textField.text = "4"
-        }
+     pushedNumberButton (buttonName: "4")
     }
     
     @IBAction func fiveButton(_ sender: UIButton) {
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "5"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "5"
-            checkButtonResult = false
-        } else {
-            textField.text = "5"
-        }
+      pushedNumberButton (buttonName: "5")
     }
    
     @IBAction func sixButton(_ sender: UIButton) {
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "6"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "6"
-            checkButtonResult = false
-        } else {
-            textField.text = "6"
-        }
+     pushedNumberButton (buttonName: "6")
     }
     
     @IBAction func sevenButton(_ sender: UIButton) {
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "7"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "7"
-            checkButtonResult = false
-        } else {
-            textField.text = "7"
-        }
+        pushedNumberButton (buttonName: "7")
     }
     
     @IBAction func eightButton(_ sender: UIButton) {
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "8"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "8"
-            checkButtonResult = false
-        } else {
-            textField.text = "8"
-        }
+       pushedNumberButton (buttonName: "8")
     }
     
     @IBAction func nineButton(_ sender: UIButton) {
-        if textField.hasText && !checkButtonResult {
-            textField.text = textField.text! + "9"
-        } else if textField.hasText && checkButtonResult {
-            textField.text = ""
-            textField.text = "9"
-            checkButtonResult = false
-        } else {
-            textField.text = "9"
-        }
+       
+        pushedNumberButton (buttonName: "9")
     }
     
     //MARK: Functions
@@ -420,4 +355,18 @@ class ViewController: UIViewController {
         }
        
    }
+    
+    func pushedNumberButton ( buttonName: String) {
+       
+        if textField.hasText && !checkButtonResult {
+            textField.text = textField.text! + buttonName
+        } else if textField.hasText && checkButtonResult {
+            textField.text = ""
+            textField.text = buttonName
+            checkButtonResult = false
+        } else {
+            textField.text = buttonName
+        }
+
+    }
 }
