@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var result = 0.0
     var checkButton = false
     var checkButtonResult = false
+    var checkMinusButton = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,25 @@ class ViewController: UIViewController {
     }
 
     //MARK: Action
+   
+    @IBAction func minusPlusButton(_ sender: UIButton) {
+         if !textField.hasText && !checkMinusButton {
+         textField.text = "-"
+         checkMinusButton = true
+         } else if checkMinusButton && textField.hasText {
+         var newText: String = textField.text!
+         newText.remove(at: newText.startIndex)
+         textField.text = newText
+         checkMinusButton = false
+         } else if !checkMinusButton && textField.hasText {
+            var newText: String = textField.text!
+            newText.insert("-", at: newText.startIndex)
+            textField.text = newText
+            checkMinusButton = true
+         }
+        
+    }
+    
     
     @IBAction func clearButton(_ sender: UIButton) {
         textField.text = ""
@@ -82,6 +102,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func minusButton(_ sender: UIButton) {
+        if !(textField.text?.hasPrefix("-"))!
+        {
         if textField.hasText && arithmeticSign == ""{
             firstArgument = Double (textField.text!)!
             textField.text = textField.text! + "-"
@@ -103,6 +125,38 @@ class ViewController: UIViewController {
                 checkButtonResult = false
             }
         }
+            
+        } else {
+            
+           
+            if textField.hasText && arithmeticSign == ""{
+                var newText: String = textField.text!
+                
+                newText.remove(at: newText.startIndex)
+               
+                firstArgument = -Double (newText)!
+                textField.text = textField.text! + "-"
+                arithmeticSign = "-"
+                checkButton = true
+                checkButtonResult = false
+            }
+            else if textField.hasText && arithmeticSign != "" {
+                
+                firstArgument = divideStringToArgument().firstArg
+                secondArgument = divideStringToArgument().secondArg
+                if secondArgument != 0 {
+                    resultOfOperations()
+                }
+                else {
+                    textField.text = String (firstArgument) + "-"
+                    arithmeticSign = "-"
+                    checkButton = true
+                    checkButtonResult = false
+                }
+            }
+        
+        }
+        
 
     }
     
@@ -257,16 +311,34 @@ class ViewController: UIViewController {
                     //Do nothing
                 }
             case "-":
+                if (textField.text?.hasPrefix("-"))! {
                 
-                var arriesFromTextField = textField.text?.components(separatedBy: "-")
-                firstArg = Double (arriesFromTextField![0])!
+                    var newText: String = textField.text!
+                    
+                    newText.remove(at: newText.startIndex)
                 
-                if arriesFromTextField![1] != "" {
-                    secondArg = Double (arriesFromTextField![1])!
+                var arriesFromTextField = newText.components(separatedBy: "-")
+                firstArg = -Double (arriesFromTextField[0])!
+                
+                if arriesFromTextField[1] != "" {
+                    secondArg = Double (arriesFromTextField[1])!
                 }
                     
                 else {
                     //Do nothing
+                }
+                } else {
+                    var arriesFromTextField = textField.text?.components(separatedBy: "-")
+                    firstArg = Double (arriesFromTextField![0])!
+                    
+                    if arriesFromTextField![1] != "" {
+                        secondArg = Double (arriesFromTextField![1])!
+                    }
+                        
+                    else {
+                        //Do nothing
+                    }
+
                 }
 
             case "/":
